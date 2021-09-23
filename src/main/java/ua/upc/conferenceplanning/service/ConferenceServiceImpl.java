@@ -32,15 +32,27 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
-    public Conference editConference(Long id, Conference conf) {
+    public Conference updateConf(Long id, Conference conf) {
         Optional<Conference> oldConf = conferenceDao.findById(id);
 
         if(!oldConf.isPresent()){
             throw new ConferenceException("conference is not found");
         }
 
+        checkDuplicateConf(oldConf.get(), conf);
 
+        oldConf.get().updateConference(conf);
 
-        return null;
+        return conferenceDao.save(oldConf.get());
     }
+
+    private void checkDuplicateConf(Conference oldConf, Conference newConf){
+        if(!oldConf.getName().equals(newConf.getName())){
+            Conference conf = conferenceDao.getByName(newConf.getName());
+            if(Objects.nonNull(conf)){
+                throw new ConferenceException("conference with same name is already in storage");
+            }
+        }
+    }
+
 }

@@ -10,5 +10,5 @@ public interface ConferenceService {
 
     Long addConference();
 
-    Conference editConference(Long id, Conference conf);
+    Conference updateConf(Long id, Conference conf);
 }

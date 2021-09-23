@@ -1,5 +1,6 @@
 package ua.upc.conferenceplanning.persistence.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Table
+@AllArgsConstructor
 public class Conference {
 
     @Id
@@ -48,5 +50,12 @@ public class Conference {
             joinColumns = {@JoinColumn(name = "conference_id")},
             inverseJoinColumns = {@JoinColumn(name = "talk_id")})
     private Set<Talk> talks;
+
+    public void updateConference(Conference newConf){
+        this.name = newConf.getName();
+        this.subject = newConf.getSubject();
+        this.participantNumber = newConf.getParticipantNumber();
+        this.date = newConf.getDate();
+    }
 
 }

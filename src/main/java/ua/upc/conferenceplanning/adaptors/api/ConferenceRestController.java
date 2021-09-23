@@ -27,6 +27,11 @@ public class ConferenceRestController {
         return conferenceService.findAllConferences();
     }
 
+    @PutMapping("/{conference_id}")
+    Conference updateConference(@PathVariable Long confId, @RequestBody @Valid Conference conf){
+        return conferenceService.updateConf(confId, conf);
+    }
+
     @ExceptionHandler(ConferenceException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason="bad request")
     void onError(){}
