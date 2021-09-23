@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ua.upc.conferenceplanning.adaptors.api.dto.ConferenceDto;
-import ua.upc.conferenceplanning.exception.NameException;
+import ua.upc.conferenceplanning.adaptors.api.dto.TalkDto;
+import ua.upc.conferenceplanning.exception.DuplicateException;
 import ua.upc.conferenceplanning.exception.ViolatedRestrictionsException;
 import ua.upc.conferenceplanning.persistence.entity.Conference;
 import ua.upc.conferenceplanning.service.ConferenceService;
+import ua.upc.conferenceplanning.service.TalkService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,6 +28,7 @@ import java.util.List;
 public class ConferenceRestController {
 
     private final ConferenceService conferenceService;
+    private final TalkService talkService;
 
     @PostMapping()
     Long addConference(@RequestBody @Valid ConferenceDto conferenceDto) {
@@ -42,12 +45,17 @@ public class ConferenceRestController {
         return conferenceService.updateConf(confId, conf);
     }
 
+    @PutMapping("/{conference_id}/talks")
+    Long addTalk(@PathVariable("conference_id") Long confId, @RequestBody @Valid TalkDto talkDto) {
+        return talkService.addTalk(confId, talkDto);
+    }
+
     @ExceptionHandler(ViolatedRestrictionsException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "bad request")
     void onRestrictionsViolated() {
     }
 
-    @ExceptionHandler(NameException.class)
+    @ExceptionHandler(DuplicateException.class)
     @ResponseStatus(value = HttpStatus.CONFLICT, reason = "bad request")
     void onDuplicates() {
     }

@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.upc.conferenceplanning.adaptors.api.dto.ConferenceDto;
+import ua.upc.conferenceplanning.exception.DuplicateException;
 import ua.upc.conferenceplanning.exception.ViolatedRestrictionsException;
-import ua.upc.conferenceplanning.exception.NameException;
 import ua.upc.conferenceplanning.persistence.ConferenceDao;
 import ua.upc.conferenceplanning.persistence.entity.Conference;
 
@@ -41,7 +41,7 @@ public class ConferenceServiceImpl implements ConferenceService {
             } else if (Objects.equals(conferenceDto.getName(), duplicates.get(0).getName())) {
                 String msg = String.format("Conference name %s is not unique!", conferenceDto.getName());
                 log.error(msg);
-                throw new NameException(msg);
+                throw new DuplicateException(msg);
             }
         }
 

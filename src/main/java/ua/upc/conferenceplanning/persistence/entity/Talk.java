@@ -3,6 +3,7 @@ package ua.upc.conferenceplanning.persistence.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.upc.conferenceplanning.adaptors.api.dto.TalkDto;
 import ua.upc.conferenceplanning.domain.TalkType;
 
 import javax.persistence.Entity;
@@ -41,4 +42,10 @@ public class Talk {
     @Enumerated(EnumType.STRING)
     private TalkType type;
 
+    public Talk(TalkDto talkDto) {
+        this.name = talkDto.getName();
+        this.description = talkDto.getDescription();
+        this.orator = talkDto.getOrator();
+        this.type = talkDto.getType();
+    }
 }

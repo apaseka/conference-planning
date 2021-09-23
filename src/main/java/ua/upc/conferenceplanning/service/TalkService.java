@@ -6,12 +6,8 @@ import ua.upc.conferenceplanning.persistence.entity.Conference;
 
 import java.util.List;
 
-public interface ConferenceService {
+public interface TalkService {
 
-    List<Conference> findAllConferences();
-
-    Long addConference(ConferenceDto conferenceDto);
-
-    Conference updateConf(Long id, ConferenceDto conf);
+    Long addTalk(Long confId, TalkDto talkDto);
 
 }
