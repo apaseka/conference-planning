@@ -16,6 +16,7 @@ import ua.upc.conferenceplanning.adaptors.api.dto.TalkDto;
 import ua.upc.conferenceplanning.exception.DuplicateException;
 import ua.upc.conferenceplanning.exception.ViolatedRestrictionsException;
 import ua.upc.conferenceplanning.persistence.entity.Conference;
+import ua.upc.conferenceplanning.persistence.entity.Talk;
 import ua.upc.conferenceplanning.service.ConferenceService;
 import ua.upc.conferenceplanning.service.TalkService;
 
@@ -51,7 +52,7 @@ public class ConferenceRestController {
     }
 
     @GetMapping("/{conference_id}/talks")
-    List<TalkDto> getTalks(@PathVariable("conference_id") Long confId) {
+    List<Talk> getTalks(@PathVariable("conference_id") Long confId) {
         return talkService.getTalks(confId);
     }
 

@@ -67,8 +67,8 @@ public class TalksServiceImpl implements TalkService {
     }
 
     @Override
-    public List<TalkDto> getTalks(Long confId) {
-        return null;
+    public List<Talk> getTalks(Long confId) {
+        return talkDao.findAllByConferenceId(confId);
     }
 
 }
