@@ -10,4 +10,6 @@ public interface ConferenceService {
     List<Conference> findAllConferences();
 
     Long addConference(ConferenceDto conferenceDto);
+
+    Conference updateConf(Long id, ConferenceDto conf);
 }
