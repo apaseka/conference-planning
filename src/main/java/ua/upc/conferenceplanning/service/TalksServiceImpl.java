@@ -61,10 +61,9 @@ public class TalksServiceImpl implements TalkService {
             conference.getTalks().add(talk);
         }
 
-        Talk savedTalk = talkDao.save(talk);
-        conferenceDao.save(conference);
+        talkDao.save(talk);
 
-        return savedTalk.getId();
+        return talk.getId();
     }
 
     @Override

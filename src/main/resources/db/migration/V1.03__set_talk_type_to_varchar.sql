@@ -1,0 +1,1 @@
+ALTER TABLE talk ALTER COLUMN type TYPE varchar(30);
