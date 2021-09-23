@@ -1,6 +1,6 @@
 package ua.upc.conferenceplanning.service;
 
-import ua.upc.conferenceplanning.adaptors.api.ConferenceDto;
+import ua.upc.conferenceplanning.adaptors.api.dto.ConferenceDto;
 import ua.upc.conferenceplanning.persistence.entity.Conference;
 
 import java.util.List;

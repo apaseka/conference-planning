@@ -1,4 +1,4 @@
-package ua.upc.conferenceplanning.adaptors.api;
+package ua.upc.conferenceplanning.adaptors.api.dto;
 
 import lombok.Getter;
 import lombok.Setter;

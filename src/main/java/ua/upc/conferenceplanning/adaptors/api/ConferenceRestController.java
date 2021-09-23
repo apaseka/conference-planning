@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ua.upc.conferenceplanning.exception.ConferenceException;
+import ua.upc.conferenceplanning.adaptors.api.dto.ConferenceDto;
 import ua.upc.conferenceplanning.persistence.entity.Conference;
 import ua.upc.conferenceplanning.service.ConferenceService;
 
@@ -28,7 +29,7 @@ public class ConferenceRestController {
     }
 
     @PutMapping("/{conference_id}")
-    Conference updateConference(@PathVariable Long confId, @RequestBody @Valid ConferenceDto conf){
+    Conference updateConference(@PathVariable("conference_id") Long confId, @RequestBody @Valid ConferenceDto conf){
         return conferenceService.updateConf(confId, conf);
     }
 

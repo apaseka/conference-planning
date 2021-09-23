@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.upc.conferenceplanning.adaptors.api.ConferenceDto;
+import ua.upc.conferenceplanning.adaptors.api.dto.ConferenceDto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,6 +51,13 @@ public class Conference {
             joinColumns = {@JoinColumn(name = "conference_id")},
             inverseJoinColumns = {@JoinColumn(name = "talk_id")})
     private Set<Talk> talks;
+
+    public Conference(ConferenceDto conferenceDto) {
+        this.name = conferenceDto.getName();
+        this.subject = conferenceDto.getSubject();
+        this.participantNumber = conferenceDto.getParticipantNumber();
+        this.date = conferenceDto.getDate();
+    }
 
     public void updateConference(ConferenceDto newConf){
         this.name = newConf.getName();
