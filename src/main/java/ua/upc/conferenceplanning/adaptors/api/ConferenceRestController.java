@@ -45,9 +45,14 @@ public class ConferenceRestController {
         return conferenceService.updateConf(confId, conf);
     }
 
-    @PutMapping("/{conference_id}/talks")
+    @PostMapping("/{conference_id}/talks")
     Long addTalk(@PathVariable("conference_id") Long confId, @RequestBody @Valid TalkDto talkDto) {
         return talkService.addTalk(confId, talkDto);
+    }
+
+    @GetMapping("/{conference_id}/talks")
+    List<TalkDto> getTalks(@PathVariable("conference_id") Long confId) {
+        return talkService.getTalks(confId);
     }
 
     @ExceptionHandler(ViolatedRestrictionsException.class)

@@ -14,6 +14,7 @@ import ua.upc.conferenceplanning.persistence.entity.Talk;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -64,6 +65,11 @@ public class TalksServiceImpl implements TalkService {
         conferenceDao.save(conference);
 
         return savedTalk.getId();
+    }
+
+    @Override
+    public List<TalkDto> getTalks(Long confId) {
+        return null;
     }
 
 }

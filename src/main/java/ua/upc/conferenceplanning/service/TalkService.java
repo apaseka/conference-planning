@@ -10,4 +10,5 @@ public interface TalkService {
 
     Long addTalk(Long confId, TalkDto talkDto);
 
+    List<TalkDto> getTalks(Long confId);
 }
