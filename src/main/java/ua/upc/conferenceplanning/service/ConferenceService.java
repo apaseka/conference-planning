@@ -8,4 +8,5 @@ public interface ConferenceService {
 
     List<Conference> findAllConferences();
 
+    Long addConference();
 }

@@ -1,0 +1,1 @@
+ALTER TABLE conference ADD COLUMN subject varchar(255) not null default '';

@@ -22,4 +22,9 @@ public class ConferenceServiceImpl implements ConferenceService {
         log.info("Finding all conferences");
         return conferenceDao.findAll();
     }
+
+    @Override
+    public Long addConference() {
+        return null;
+    }
 }
