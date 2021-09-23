@@ -9,4 +9,6 @@ public interface ConferenceService {
     List<Conference> findAllConferences();
 
     Long addConference();
+
+    Conference editConference(Long id, Conference conf);
 }

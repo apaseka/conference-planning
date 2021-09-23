@@ -1,11 +1,9 @@
 package ua.upc.conferenceplanning.adaptors.api;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import ua.upc.conferenceplanning.exception.ConferenceException;
 import ua.upc.conferenceplanning.persistence.entity.Conference;
 import ua.upc.conferenceplanning.service.ConferenceService;
 
@@ -28,4 +26,10 @@ public class ConferenceRestController {
     List<Conference> getAllConferences() {
         return conferenceService.findAllConferences();
     }
+
+    @ExceptionHandler(ConferenceException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason="bad request")
+    void onError(){}
+
+
 }
