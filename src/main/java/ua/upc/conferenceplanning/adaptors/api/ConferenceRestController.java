@@ -19,7 +19,7 @@ public class ConferenceRestController {
 
     @PostMapping()
     Long addConference(@RequestBody @Valid ConferenceDto conferenceDto) {
-        return conferenceService.addConference();
+        return conferenceService.addConference(conferenceDto);
     }
 
     @GetMapping()

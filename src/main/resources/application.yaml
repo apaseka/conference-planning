@@ -2,7 +2,7 @@ spring:
   application:
     name: conference-planning
   datasource:
-    url: jdbc:postgresql://localhost:32771/conference
+    url: jdbc:postgresql://localhost:32768/conference
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver

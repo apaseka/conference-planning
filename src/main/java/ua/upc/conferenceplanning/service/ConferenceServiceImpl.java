@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.upc.conferenceplanning.adaptors.api.ConferenceDto;
+import ua.upc.conferenceplanning.adaptors.api.ConferenceDto;
 import ua.upc.conferenceplanning.exception.ConferenceException;
 import ua.upc.conferenceplanning.persistence.ConferenceDao;
 import ua.upc.conferenceplanning.persistence.entity.Conference;
@@ -28,7 +29,7 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
-    public Long addConference() {
+    public Long addConference(ConferenceDto conferenceDto) {
         return null;
     }
 
