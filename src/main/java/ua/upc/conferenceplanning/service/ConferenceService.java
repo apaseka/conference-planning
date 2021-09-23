@@ -1,5 +1,6 @@
 package ua.upc.conferenceplanning.service;
 
+import ua.upc.conferenceplanning.adaptors.api.ConferenceDto;
 import ua.upc.conferenceplanning.persistence.entity.Conference;
 
 import java.util.List;
@@ -10,5 +11,5 @@ public interface ConferenceService {
 
     Long addConference();
 
-    Conference updateConf(Long id, Conference conf);
+    Conference updateConf(Long id, ConferenceDto conf);
 }

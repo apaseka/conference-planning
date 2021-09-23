@@ -28,7 +28,7 @@ public class ConferenceRestController {
     }
 
     @PutMapping("/{conference_id}")
-    Conference updateConference(@PathVariable Long confId, @RequestBody @Valid Conference conf){
+    Conference updateConference(@PathVariable Long confId, @RequestBody @Valid ConferenceDto conf){
         return conferenceService.updateConf(confId, conf);
     }
 
