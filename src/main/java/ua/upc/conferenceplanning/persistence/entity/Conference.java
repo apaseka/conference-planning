@@ -1,8 +1,11 @@
 package ua.upc.conferenceplanning.persistence.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import ua.upc.conferenceplanning.adaptors.api.dto.ConferenceDto;
 
@@ -26,7 +29,8 @@ import java.util.Set;
 @Setter
 @Getter
 @Table
-@AllArgsConstructor
+@RequiredArgsConstructor
+@EqualsAndHashCode
 public class Conference {
 
     @Id
@@ -35,21 +39,25 @@ public class Conference {
     private Long id;
 
     @NotBlank
+    @NonNull
     private String name;
 
     @NotBlank
+    @NonNull
     private String subject;
 
     @Min(101)
+    @NonNull
     private Integer participantNumber;
 
-    @NotNull
+    @NonNull
     private LocalDate date;
 
     @OneToMany
     @JoinTable(name = "planned_talks",
             joinColumns = {@JoinColumn(name = "conference_id")},
             inverseJoinColumns = {@JoinColumn(name = "talk_id")})
+
     private Set<Talk> talks;
 
     public Conference(ConferenceDto conferenceDto) {

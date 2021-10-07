@@ -24,7 +24,7 @@ public class ConferenceServiceImpl implements ConferenceService {
 
     @Override
     public List<Conference> findAllConferences() {
-        log.info("Finding all conferences");
+        log.info("Getting all conferences");
         return conferenceDao.findAll();
     }
 

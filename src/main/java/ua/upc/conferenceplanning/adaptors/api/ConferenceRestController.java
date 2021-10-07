@@ -32,6 +32,7 @@ public class ConferenceRestController {
     private final TalkService talkService;
 
     @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
     Long addConference(@RequestBody @Valid ConferenceDto conferenceDto) {
         return conferenceService.addConference(conferenceDto);
     }

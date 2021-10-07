@@ -1,6 +1,8 @@
 package ua.upc.conferenceplanning.adaptors.api.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Min;
@@ -10,6 +12,8 @@ import java.time.LocalDate;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConferenceDto {
 
     @NotBlank
