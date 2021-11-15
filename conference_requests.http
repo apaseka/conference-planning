@@ -1,0 +1,16 @@
+#POST http://localhost:8090/conferences
+#GET http://localhost:8090/conferences
+POST http://localhost:8090/actuator/loggers/ua.upc.conferenceplanning.service.ConferenceServiceImpl.class
+#GET http://localhost:8090/conferences/5/talks
+Content-Type: application/json
+
+{"configureLevel": "DEBUG"}
+###
+#{
+#  "name":"first3 123",
+#  "participantNumber":103,
+#  "subject":"subject one 123",
+#  "date":"2021-08-30"
+#}
+GET http://localhost:8090/conferences
+Content-Type: application/json

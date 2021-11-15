@@ -2,6 +2,8 @@ package ua.upc.conferenceplanning.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.upc.conferenceplanning.adaptors.api.dto.ConferenceDto;
@@ -18,13 +20,16 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Endpoint(id = "conferences")
 public class ConferenceServiceImpl implements ConferenceService {
 
     private final ConferenceDao conferenceDao;
 
+    @ReadOperation
     @Override
     public List<Conference> findAllConferences() {
-        log.info("Getting all conferences");
+        LOG.info("Getting all conferences info");
+        LOG.debug("Getting all conferences debug");
         return conferenceDao.findAll();
     }
 
@@ -36,17 +41,17 @@ public class ConferenceServiceImpl implements ConferenceService {
         if (!duplicates.isEmpty()) {
             if (Objects.equals(conferenceDto.getDate(), duplicates.get(0).getDate())) {
                 String msg = String.format("Conference date %s is not unique!", conferenceDto.getDate().toString());
-                log.error(msg);
+                LOG.error(msg);
                 throw new ViolatedRestrictionsException(msg);
             } else if (Objects.equals(conferenceDto.getName(), duplicates.get(0).getName())) {
                 String msg = String.format("Conference name %s is not unique!", conferenceDto.getName());
-                log.error(msg);
+                LOG.error(msg);
                 throw new DuplicateException(msg);
             }
         }
 
         Conference conference = conferenceDao.save(new Conference(conferenceDto));
-        log.info("Conference saved in db, id: {}, name: {}", conference.getId(), conference.getName());
+        LOG.info("Conference saved in db, id: {}, name: {}", conference.getId(), conference.getName());
         return conference.getId();
     }
 
@@ -54,7 +59,7 @@ public class ConferenceServiceImpl implements ConferenceService {
     public Conference updateConf(Long id, ConferenceDto conf) {
         Optional<Conference> oldConf = conferenceDao.findById(id);
 
-        if (!oldConf.isPresent()) {
+        if (oldConf.isEmpty()) {
             throw new ViolatedRestrictionsException("conference is not found");
         }
 

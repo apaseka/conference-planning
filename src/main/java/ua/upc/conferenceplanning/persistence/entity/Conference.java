@@ -1,12 +1,14 @@
 package ua.upc.conferenceplanning.persistence.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.data.repository.cdi.Eager;
 import ua.upc.conferenceplanning.adaptors.api.dto.ConferenceDto;
 
 import javax.persistence.Entity;
@@ -20,7 +22,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -54,10 +55,10 @@ public class Conference {
     private LocalDate date;
 
     @OneToMany
+    @Fetch(FetchMode.JOIN)
     @JoinTable(name = "planned_talks",
             joinColumns = {@JoinColumn(name = "conference_id")},
             inverseJoinColumns = {@JoinColumn(name = "talk_id")})
-
     private Set<Talk> talks;
 
     public Conference(ConferenceDto conferenceDto) {
@@ -67,7 +68,7 @@ public class Conference {
         this.date = conferenceDto.getDate();
     }
 
-    public void updateConference(ConferenceDto newConf){
+    public void updateConference(ConferenceDto newConf) {
         this.name = newConf.getName();
         this.subject = newConf.getSubject();
         this.participantNumber = newConf.getParticipantNumber();

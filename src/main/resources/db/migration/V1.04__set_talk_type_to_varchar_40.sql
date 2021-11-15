@@ -1,0 +1,1 @@
+ALTER TABLE talk ALTER COLUMN type TYPE varchar(40) using type::varchar(40);

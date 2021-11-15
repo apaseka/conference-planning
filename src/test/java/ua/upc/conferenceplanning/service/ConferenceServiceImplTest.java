@@ -14,6 +14,7 @@ import ua.upc.conferenceplanning.persistence.entity.Conference;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -26,7 +27,7 @@ public class ConferenceServiceImplTest {
 
     private ConferenceService service;
 
-    private Conference conference = new Conference("name", "subject", 123, LocalDate.of(2021, 11, 30));
+    private Conference validConference = new Conference("name", "subject", 123, LocalDate.of(2021, 11, 30));
 
     @Mock
     private ConferenceDao conferenceDao;
@@ -38,7 +39,7 @@ public class ConferenceServiceImplTest {
 
     @Test
     public void findAllConferences() {
-        when(conferenceDao.findAll()).thenReturn(Collections.singletonList(conference));
+        when(conferenceDao.findAll()).thenReturn(Collections.singletonList(validConference));
 
         List<Conference> conferences = service.findAllConferences();
 
@@ -51,10 +52,10 @@ public class ConferenceServiceImplTest {
         ConferenceDto conferenceDto = new ConferenceDto("name", 132, "subject", LocalDate.of(2021, 11, 30));
         Conference conferenceNew = new Conference(conferenceDto);
 
-        when(conferenceDao.findAllByNameOrDate(this.conference.getName(), this.conference.getDate()))
+        when(conferenceDao.findAllByNameOrDate(this.validConference.getName(), this.validConference.getDate()))
                 .thenReturn(Collections.emptyList());
-        conference.setId(1L);
-        when(conferenceDao.save(conferenceNew)).thenReturn(conference);
+        validConference.setId(1L);
+        when(conferenceDao.save(conferenceNew)).thenReturn(validConference);
 
         Long id = service.addConference(conferenceDto);
 
@@ -75,15 +76,10 @@ public class ConferenceServiceImplTest {
 
     @Test(expected = DuplicateException.class)
     public void addConferenceNameNotUnique() {
-        ConferenceDto conferenceDto = new ConferenceDto("name", 132, "subject", LocalDate.of(2021, 11, 30));
+        ConferenceDto conferenceDto = new ConferenceDto("name", 132, "subject", LocalDate.of(2021, 12, 30));
 
         when(conferenceDao.findAllByNameOrDate(conferenceDto.getName(), conferenceDto.getDate()))
-                .thenReturn(Collections.singletonList(new Conference(
-                        "name",
-                        "subject",
-                        123, LocalDate.of(2021, 12, 30))
-                ))
-        ;
+                .thenReturn(Collections.singletonList(validConference));
 
         service.addConference(conferenceDto);
 
@@ -91,6 +87,14 @@ public class ConferenceServiceImplTest {
 
     @Test
     public void updateConf() {
+        Long conferenceId = 1L;
+        ConferenceDto conf = new ConferenceDto("new name", 132, "subject", LocalDate.of(2021, 11, 30));
+        validConference.setName("new name");
+        when(conferenceDao.findById(conferenceId)).thenReturn(Optional.of(validConference));
+        when(conferenceDao.save(validConference)).thenReturn(validConference);
 
+        Conference updateConf = service.updateConf(conferenceId, conf);
+
+        assertEquals("new name", updateConf.getName());
     }
 }

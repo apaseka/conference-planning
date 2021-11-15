@@ -37,19 +37,19 @@ public class TalksServiceImpl implements TalkService {
 
         if (LocalDate.now().plus(1L, ChronoUnit.MONTHS).isAfter(conferenceDate)) {
             String msg = String.format("Talk date is too late! Conference started %s", conferenceDate);
-            log.error(msg);
+            LOG.error(msg);
             throw new ViolatedRestrictionsException(String.format("Talk date is too late! Conference started %s", conferenceDate));
         }
 
         if (!talkDao.findAllByName(talkDto.getName()).isEmpty()) {
             String msg = String.format("Talk name %s is not unique!", talkDto.getName());
-            log.error(msg);
+            LOG.error(msg);
             throw new DuplicateException(msg);
         }
 
         if (talkDao.findAllByOrator(talkDto.getOrator()).size() > 3) {
             String msg = String.format("Talks limit for orator %s is being reached!", talkDto.getOrator());
-            log.error(msg);
+            LOG.error(msg);
             throw new ViolatedRestrictionsException(msg);
         }
 
