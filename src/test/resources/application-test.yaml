@@ -7,7 +7,7 @@ spring:
   freemarker:
     cache: false
   datasource:
-    url: jdbc:tc:postgresql:11:///library?TC_REUSABLE=true
+    url: jdbc:tc:postgresql:11:///conference?TC_REUSABLE=true
     username: test
     password: test
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
@@ -16,9 +16,6 @@ spring:
   test:
     database:
       replace: none
-
-library:
-  size: 0
 
 logging:
   level:

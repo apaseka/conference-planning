@@ -1,0 +1,7 @@
+debug: true
+
+spring:
+  freemarker:
+    cache: false
+  jpa:
+    show-sql: true

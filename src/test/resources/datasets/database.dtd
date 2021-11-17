@@ -1,0 +1,29 @@
+<!ELEMENT dataset (
+        conference*,
+        talk*,
+        planned_talks*)>
+
+        <!ELEMENT conference EMPTY>
+        <!ATTLIST conference
+                id CDATA #REQUIRED
+                name CDATA #REQUIRED
+                participant_number CDATA #REQUIRED
+                date CDATA #REQUIRED
+                subject CDATA #REQUIRED
+                >
+
+        <!ELEMENT talk EMPTY>
+        <!ATTLIST talk
+                id CDATA #REQUIRED
+                name CDATA #REQUIRED
+                description CDATA #REQUIRED
+                orator CDATA #REQUIRED
+                type CDATA #REQUIRED
+                >
+
+        <!ELEMENT planned_talks EMPTY>
+        <!ATTLIST planned_talks
+                conference_id CDATA #REQUIRED
+                talk_id CDATA #REQUIRED
+                >
+

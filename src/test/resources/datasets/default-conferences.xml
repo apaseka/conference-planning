@@ -1,0 +1,7 @@
+<!DOCTYPE dataset SYSTEM "src/test/resources/datasets/database.dtd">
+
+<dataset>
+    <conference id="105" name="Winter session" participant_number="123" date="2022-01-28" subject="Unit tests"/>
+    <conference id="106" name="Spring session" participant_number="222" date="2022-04-28" subject="Spring advanced"/>
+    <conference id="109" name="Summer session" participant_number="150" date="2022-07-28" subject="Kafka"/>
+</dataset>
