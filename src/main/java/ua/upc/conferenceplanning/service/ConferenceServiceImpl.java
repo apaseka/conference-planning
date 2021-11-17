@@ -1,5 +1,8 @@
 package ua.upc.conferenceplanning.service;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Timer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -28,14 +31,17 @@ public class ConferenceServiceImpl implements ConferenceService {
     @ReadOperation
     @Override
     public List<Conference> findAllConferences() {
-        LOG.info("Getting all conferences info");
-        LOG.debug("Getting all conferences debug");
+        Timer timer = Metrics.timer("conferences.fetch");
+        timer.record(() -> {
+            LOG.info("Getting all conferences info");
+            LOG.debug("Getting all conferences debug");
+        });
         return conferenceDao.findAll();
     }
 
     @Override
     public Long addConference(ConferenceDto conferenceDto) {
-
+        Counter counter = Metrics.counter("conferences.added");
         List<Conference> duplicates = conferenceDao.findAllByNameOrDate(conferenceDto.getName(), conferenceDto.getDate());
 
         if (!duplicates.isEmpty()) {
@@ -51,6 +57,7 @@ public class ConferenceServiceImpl implements ConferenceService {
         }
 
         Conference conference = conferenceDao.save(new Conference(conferenceDto));
+        counter.increment();
         LOG.info("Conference saved in db, id: {}, name: {}", conference.getId(), conference.getName());
         return conference.getId();
     }
